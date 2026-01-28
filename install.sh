@@ -100,7 +100,7 @@ echo ""
 install_to_agents() {
     local repo_dir="$1"
 
-    echo -ne "Installing to $AGENTS_SKILLS_DIR... "
+    echo -ne "${CYAN}→${NC} Installing skills... "
     mkdir -p "$AGENTS_SKILLS_DIR"
 
     for skill in "${SKILLS[@]}"; do
@@ -114,11 +114,10 @@ install_to_agents() {
             fi
             # Copy skill to agents directory
             cp -r "$skill_src" "$skill_dest"
-            echo -e "${GREEN}✓${NC} $skill"
         fi
     done
 
-    echo -e "${GREEN}Done${NC}"
+    echo -e "${GREEN}✓${NC}"
 }
 
 # Install agents to Claude Code
@@ -130,7 +129,7 @@ install_agents() {
         return
     fi
 
-    echo -ne "Installing agents to $CLAUDE_AGENTS_DIR... "
+    echo -ne "${CYAN}→${NC} Installing agents... "
     mkdir -p "$CLAUDE_AGENTS_DIR"
 
     for agent in "${AGENTS[@]}"; do
@@ -144,11 +143,10 @@ install_agents() {
             fi
             # Copy agent to Claude agents directory
             cp "$agent_src" "$agent_dest"
-            echo -e "${GREEN}✓${NC} $agent"
         fi
     done
 
-    echo -e "${GREEN}Done${NC}"
+    echo -e "${GREEN}✓${NC}"
 }
 
 # Create symlinks for detected platforms
@@ -158,7 +156,7 @@ create_symlinks() {
         local platform_path="${PLATFORM_PATHS[$i]}"
         local platform_display="${PLATFORM_DISPLAY[$i]}"
 
-        echo -ne "Creating symlinks for $platform_display... "
+        echo -ne "${CYAN}→${NC} Linking $platform_display... "
 
         mkdir -p "$platform_path"
 
@@ -177,7 +175,7 @@ create_symlinks() {
             fi
         done
 
-        echo -e "${GREEN}Done${NC}"
+        echo -e "${GREEN}✓${NC}"
     done
 }
 
@@ -185,9 +183,9 @@ create_symlinks() {
 if [ -n "$CUSTOM_PATH" ]; then
     TMP_DIR=$(mktemp -d)
     trap "rm -rf $TMP_DIR" EXIT
-    echo -ne "Downloading... "
-    git clone --depth 1 --quiet "$REPO_URL" "$TMP_DIR/repo" 2>/dev/null || { echo -e "${RED}Failed${NC}"; exit 1; }
-    echo -e "${GREEN}Done${NC}"
+    echo -ne "${CYAN}→${NC} Downloading... "
+    git clone --depth 1 --quiet "$REPO_URL" "$TMP_DIR/repo" 2>/dev/null || { echo -e "${RED}✗${NC}"; exit 1; }
+    echo -e "${GREEN}✓${NC}"
     install_to_agents "$TMP_DIR/repo"
     install_agents "$TMP_DIR/repo"
     SKILLS_LIST=$(printf '%s, ' "${SKILLS[@]}" | sed 's/, $//')
@@ -278,9 +276,9 @@ else
     TMP_DIR=$(mktemp -d)
     trap "rm -rf $TMP_DIR" EXIT
 
-    echo -ne "Downloading from GitHub... "
-    git clone --depth 1 --quiet "$REPO_URL" "$TMP_DIR/repo" 2>/dev/null || { echo -e "${RED}Failed${NC}"; exit 1; }
-    echo -e "${GREEN}Done${NC}"
+    echo -ne "${CYAN}→${NC} Downloading from GitHub... "
+    git clone --depth 1 --quiet "$REPO_URL" "$TMP_DIR/repo" 2>/dev/null || { echo -e "${RED}✗${NC}"; exit 1; }
+    echo -e "${GREEN}✓${NC}"
 
     REPO_DIR="$TMP_DIR/repo"
 fi
@@ -313,5 +311,5 @@ echo "Examples:"
 echo "  \"Create a login screen with PurgeTSS styling\""
 echo "  \"How do I structure an Alloy app?\""
 echo "  \"Implement push notifications\""
-echo "  \"Use the titanium-researcher agent to analyze this codebase\""
+echo "  \"Use the ti-researcher agent to analyze this codebase\""
 echo ""
