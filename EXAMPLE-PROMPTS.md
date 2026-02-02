@@ -1,50 +1,49 @@
 # Titanium Skills - Testing & Example Prompts
 
-Prompts to verify that AI assistants activate and correctly use the skills.
+Prompts to verify that AI assistants activate and correctly use the skills. Written as realistic developer requests.
 
-## AGENTS.md/CLAUDE.md Context Tests
+## Instruction Files Context Tests
 
-These prompts test that the AI has read the documentation index from your AGENTS.md or CLAUDE.md file.
+These prompts test that the AI has read the documentation index from your project's instruction file (AGENTS.md/CLAUDE.md/GEMINI.md).
 
 ### Context Verification
 
 ```
-"What documentation does my CLAUDE.md contain about Titanium SDK?"
+"What Titanium skills and docs do I have available in this project?"
 ```
 **Should mention:**
 - Titanium SDK Docs Index
-- All 7 skills (alloy-expert, purgetss, ti-ui, ti-howtos, ti-guides, alloy-guides, alloy-howtos)
+- All 7 skills (ti-expert, purgetss, ti-ui, ti-howtos, ti-guides, alloy-guides, alloy-howtos)
 - Reference files locations
 
 ---
 
 ```
-"According to my CLAUDE.md, which reference files are available for PurgeTSS?"
+"What PurgeTSS reference docs are included?"
 ```
 **Should list:**
-- class-index.md
-- grid-layout.md
-- custom-rules.md
 - animation-system.md
+- class-index.md
+- custom-rules.md
+- grid-layout.md
 - etc.
 
 ---
 
 ```
-"What version of Titanium documentation is my CLAUDE.md based on?"
+"What Titanium SDK version is this project using?"
 ```
 **Should mention:**
-- Latest Titanium SDK documentation
 - Version detection from tiapp.xml
 
 ---
 
-### AGENTS.md + Skills Combined
+### Instruction Files + Skills Combined
 
-These prompts test that AGENTS.md provides context while skills provide specialized help.
+These prompts test that the documentation index provides context while skills provide specialized help.
 
 ```
-"According to my CLAUDE.md, what's the critical rule about platform-specific properties in PurgeTSS?"
+"My Android build crashes because of an iOS-only property in PurgeTSS. What's the rule for platform-specific stuff?"
 ```
 **Should include:**
 - Reference to `purgetss/references/platform-modifiers.md`
@@ -54,7 +53,7 @@ These prompts test that AGENTS.md provides context while skills provide speciali
 ---
 
 ```
-"My CLAUDE.md mentions ListView performance. What are the key rules?"
+"My ListView scrolls like garbage with 200+ items. What am I doing wrong?"
 ```
 **Should include:**
 - Reference to `ti-ui/references/listviews-and-performance.md`
@@ -65,20 +64,23 @@ These prompts test that AGENTS.md provides context while skills provide speciali
 ---
 
 ```
-"What does my CLAUDE.md say about using $.UI.create() for dynamic components?"
+"I need to create views on the fly from code instead of XML. What's the cleanest way?"
 ```
 **Should include:**
-- Reference to `purgetss/references/dynamic-component-creation.md`
-- Syntax examples
+- `$.UI.create()` syntax examples (standard Alloy API)
 - Why it's better than manual style objects
+- Reference to `alloy-guides/references/VIEWS_DYNAMIC.md` or `purgetss/references/dynamic-component-creation.md` if PurgeTSS is detected
 
 ---
 
 ## Activation Tests
 
-### alloy-expert
+### ti-expert
 ```
-"How should I structure a new Titanium Alloy app with user authentication?"
+"I'm starting a new app that needs login, signup, and a protected dashboard. How should I organize the project?"
+```
+```
+"My app is getting messy — controllers are huge, everything talks to everything. Help me restructure it properly."
 ```
 **Should include:**
 - Structure with `lib/api/`, `lib/services/`, `lib/helpers/`
@@ -89,7 +91,7 @@ These prompts test that AGENTS.md provides context while skills provide speciali
 
 ### purgetss
 ```
-"Create a card component with shadow, rounded corners, and horizontal layout"
+"I need a card component with rounded corners, a shadow, and the image on the left side. What PurgeTSS classes do I use?"
 ```
 **Should include:**
 - Classes like `horizontal`, `rounded`, `shadow`
@@ -98,15 +100,15 @@ These prompts test that AGENTS.md provides context while skills provide speciali
 
 **Trap test:**
 ```
-"Create a flex container with justify-between for a header in Titanium"
+"I want a header with the title on the left and a menu icon on the right, spaced with justify-between."
 ```
-**Correct response:** Should say flexbox does NOT exist and use `horizontal` + margins instead
+**Correct response:** Should say flexbox does NOT exist in Titanium and use `horizontal` + margins instead
 
 ---
 
 ### ti-ui
 ```
-"Best practices for ListView performance in Titanium"
+"I have a TableView with 500 rows and it's super slow on Android. How do I fix this?"
 ```
 **Should include:**
 - Avoid `Ti.UI.SIZE` in items (causes jerky scrolling)
@@ -114,7 +116,7 @@ These prompts test that AGENTS.md provides context while skills provide speciali
 - Prefer ListView over TableView for large datasets
 
 ```
-"How do I set up app icons for iOS and Android?"
+"I need to generate all the app icons for iOS and Android. What sizes do I need and where do they go?"
 ```
 **Should include:**
 - Screen densities (mdpi, hdpi, xhdpi, etc.)
@@ -125,7 +127,7 @@ These prompts test that AGENTS.md provides context while skills provide speciali
 
 ### ti-howtos
 ```
-"How to implement push notifications in Titanium for iOS and Android?"
+"I need to send push notifications to both iOS and Android. What do I need to configure?"
 ```
 **Should include:**
 - tiapp.xml configuration
@@ -134,7 +136,7 @@ These prompts test that AGENTS.md provides context while skills provide speciali
 - Lifecycle handlers
 
 ```
-"Implement GPS tracking with battery efficiency"
+"My app needs real-time GPS for delivery tracking but users complain it drains their battery."
 ```
 **Should include:**
 - distanceFilter
@@ -145,7 +147,7 @@ These prompts test that AGENTS.md provides context while skills provide speciali
 
 ### ti-guides
 ```
-"How do I access native iOS APIs using Hyperloop?"
+"I need to use a native iOS API that Titanium doesn't expose. How does Hyperloop work?"
 ```
 **Should include:**
 - Hyperloop syntax for Objective-C/Swift
@@ -153,7 +155,7 @@ These prompts test that AGENTS.md provides context while skills provide speciali
 - Code examples
 
 ```
-"Prepare my app for App Store submission"
+"My app is ready. What's the whole process to get it on the App Store?"
 ```
 **Should include:**
 - Certificates and provisioning
@@ -164,7 +166,7 @@ These prompts test that AGENTS.md provides context while skills provide speciali
 
 ### alloy-guides
 ```
-"Explain how Alloy data binding works with collections"
+"I have a list of products from an API and I want them to auto-update in the view when the data changes. How does data binding work in Alloy?"
 ```
 **Should include:**
 - Backbone.js collections
@@ -172,7 +174,7 @@ These prompts test that AGENTS.md provides context while skills provide speciali
 - Sync adapters
 
 ```
-"Create a model with SQLite adapter"
+"I need to store user profiles locally with SQLite. How do I set up the model?"
 ```
 **Should include:**
 - alloy generate model command
@@ -183,13 +185,13 @@ These prompts test that AGENTS.md provides context while skills provide speciali
 
 ### alloy-howtos
 ```
-"Fix 'No app.js found' error in Alloy"
+"I'm getting 'No app.js found' when I try to build. What's going on?"
 ```
 **Should include:**
 - Run `alloy compile --config platform=<platform>`
 
 ```
-"How to use Backbone.Events instead of Ti.App.fireEvent?"
+"I'm using Ti.App.fireEvent everywhere and it's turning into spaghetti. What's the better way to communicate between controllers?"
 ```
 **Should include:**
 - Alloy.Events = _.clone(Backbone.Events)
@@ -202,34 +204,35 @@ These prompts test that AGENTS.md provides context while skills provide speciali
 
 ### Prompt that should activate multiple skills:
 ```
-"Build a login screen with email validation, secure token storage, PurgeTSS styling, and nice animations"
+"I need a login screen with email/password validation, the auth token stored securely, and a nice fade-in animation when it loads."
 ```
 **Should use:**
-- `alloy-expert` - Architecture, controller structure
-- `purgetss` - Style classes, animations
+- `ti-expert` - Architecture, controller structure
+- `ti-ui` - Animations, layout patterns
 - `ti-howtos` - Keychain for secure tokens
+- `purgetss` - Only if PurgeTSS is detected in the project or user mentions it
 
 ---
 
 ### Complex prompt:
 ```
-"I'm building a food delivery app. Help me:
-1. Set up the project structure
-2. Create a product listing with pull-to-refresh
-3. Implement GPS tracking for delivery
-4. Style everything with PurgeTSS"
+"I'm building a food delivery app. I need:
+1. A clean project structure with separate API and service layers
+2. A product listing that refreshes when you pull down
+3. Live GPS tracking for the delivery driver
+4. The UI styled consistently across iOS and Android"
 ```
 **Should use:**
-- `alloy-expert` - Project structure
+- `ti-expert` - Project structure
 - `ti-ui` - ListView with pull-to-refresh
 - `ti-howtos` - GPS tracking
-- `purgetss` - Styling
+- `purgetss` - Only if PurgeTSS is detected in the project or user mentions it
 
 ---
 
 ## Validation Checklist
 
-- [ ] alloy-expert: Responds with correct architecture
+- [ ] ti-expert: Responds with correct architecture
 - [ ] purgetss: Does NOT use flexbox, uses correct classes
 - [ ] ti-ui: Mentions performance rules
 - [ ] ti-howtos: Includes permissions and tiapp.xml
@@ -249,7 +252,7 @@ These prompts test that AGENTS.md provides context while skills provide speciali
 
 | Skill        | Active? | Correct Response? | Notes |
 | ------------ | ------- | ----------------- | ----- |
-| alloy-expert |         |                   |       |
+| ti-expert    |         |                   |       |
 | purgetss     |         |                   |       |
 | ti-ui        |         |                   |       |
 | ti-howtos    |         |                   |       |
@@ -265,35 +268,31 @@ These prompts test that AGENTS.md provides context while skills provide speciali
 
 **E-commerce Product Listing:**
 ```
-"Create a product listing screen with:
-- ListView with custom templates
-- Pull-to-refresh to reload products
-- Image caching for performance
-- PurgeTSS styling for cards
-- Swipe-to-delete for removing items"
+"I need a product catalog screen. Each product has an image, name, price, and an 'Add to Cart' button.
+The list could have hundreds of items, and users should be able to pull down to refresh and swipe to delete."
 ```
-**Should use:** `ti-ui`, `purgetss`, `alloy-expert`
+**Should use:** `ti-ui`, `ti-expert` (+ `purgetss` if detected)
 
 **Social Feed:**
 ```
-"Build a social feed with:
-- Infinite scroll pagination
-- User avatars and names
-- Like/comment buttons
-- Animations on new items
-- Background sync for offline mode"
+"I'm building a social feed like Instagram — avatar, username, photo, like/comment counts.
+It needs infinite scroll, smooth animations when new posts load, and it should cache posts for offline."
 ```
-**Should use:** `ti-ui`, `purgetss`, `ti-howtos`
+**Should use:** `ti-ui`, `ti-howtos`, `ti-expert`
 
 **Settings Screen:**
 ```
-"Create a settings screen with:
-- Toggle switches (notifications, dark mode)
-- Account section with logout
-- Platform-specific UI (Action Bar on Android, Navigation Bar on iOS)
-- Secure storage for preferences"
+"I need a settings screen with toggle switches for notifications and dark mode,
+an account section with logout, and it should look native on both platforms
+(Action Bar on Android, Navigation Bar on iOS)."
 ```
-**Should use:** `ti-ui`, `platform-ui-android`, `platform-ui-ios`, `ti-howtos`
+**Should use:** `ti-ui`, `ti-howtos`
+
+**Onboarding Flow:**
+```
+"I want a 3-screen onboarding flow that users can swipe through, with a skip button and a 'Get Started' on the last page."
+```
+**Should use:** `ti-expert`, `ti-ui`
 
 ---
 
@@ -301,28 +300,31 @@ These prompts test that AGENTS.md provides context while skills provide speciali
 
 **Memory Leak Investigation:**
 ```
-"I have a memory leak in my app. Help me identify:
-- Common causes in Alloy controllers
-- How to properly cleanup event listeners
-- Tools to diagnose memory issues"
+"My app gets slower the more screens the user opens and closes. I think I have a memory leak.
+How do I find it and fix it in Alloy?"
 ```
-**Should use:** `alloy-expert` (references/error-handling.md, performance-patterns.md)
+**Should use:** `ti-expert` (references/error-handling.md, performance-optimization.md)
 
 **Build Failure:**
 ```
-"My PurgeTSS build fails on Android with:
-'Property opaque is not allowed in android platform'
-What did I do wrong?"
+"My build fails on Android with 'Property opaque is not allowed in android platform'.
+I'm using PurgeTSS. What did I do wrong?"
 ```
 **Should use:** `purgetss` (references/platform-modifiers.md)
 **Should explain:** Missing `[platform=ios]` modifier
 
 **Slow ListView:**
 ```
-"My ListView scrolls poorly with 1000 items. How do I optimize it?"
+"My product list with ~1000 items is choppy and laggy when scrolling fast. How do I fix it?"
 ```
 **Should use:** `ti-ui` (references/listviews-and-performance.md)
 **Should check:** Using `Ti.UI.SIZE`? Using proper templates?
+
+**Performance Audit:**
+```
+"My app feels sluggish overall. Can you look at my code and tell me what's slowing it down?"
+```
+**Should use:** `ti-ui`, `ti-expert`
 
 ---
 
@@ -330,19 +332,14 @@ What did I do wrong?"
 
 **Classic to Alloy:**
 ```
-"I have a Classic Titanium app. Help me migrate:
-- Convert Resources/app.js to Alloy structure
-- Transform functional views to Alloy MVC
-- Replace Ti.UI.create with XML markup"
+"I have an old Classic Titanium app with everything in Resources/app.js. It's unmaintainable.
+How do I migrate it to Alloy step by step?"
 ```
-**Should use:** `alloy-expert` (references/migration-patterns.md)
+**Should use:** `ti-expert` (references/migration-patterns.md)
 
 **Old Titanium to Modern:**
 ```
-"Update my Titanium 8.x app to 12.x:
-- What APIs changed?
-- New features I should use?
-- Deprecated patterns to avoid?"
+"I'm upgrading from Titanium 8.x to 12.x. What's going to break? What new stuff should I use?"
 ```
 **Should use:** `ti-guides`, check version documentation
 
@@ -363,17 +360,17 @@ Test these prompts **without** AGENTS.md, then **with** AGENTS.md to see the dif
 
 **Test 2 - Framework-Specific Knowledge:**
 ```
-"What's the correct syntax for PurgeTSS grid layout with 3 columns?"
+"I need a 3-column grid layout in PurgeTSS. What's the syntax?"
 ```
 - **Without AGENTS.md:** May suggest flexbox or Tailwind classes
 - **With AGENTS.md:** Should use `grid grid-cols-3` and explain syntax
 
 **Test 3 - Cross-Reference:**
 ```
-"What file in my skills explains cleanup patterns for Alloy controllers?"
+"Where in the docs can I find how to properly clean up Alloy controllers?"
 ```
 - **Without AGENTS.md:** "I don't know" or vague answer
-- **With AGENTS.md:** "alloy-expert/references/controller-patterns.md"
+- **With AGENTS.md:** "ti-expert/references/controller-patterns.md"
 
 ---
 
@@ -381,10 +378,8 @@ Test these prompts **without** AGENTS.md, then **with** AGENTS.md to see the dif
 
 After installing AGENTS.md/CLAUDE.md, ask these to verify it works:
 
-- [ ] "What does my CLAUDE.md contain?" → Should list all skills
-- [ ] "Which PurgeTSS file explains grid layout?" → Should know the file path
-- [ ] "What's the critical rule for platform-specific properties?" → Should answer correctly
-- [ ] "Does my CLAUDE.md mention ListView performance?" → Should say yes and point to docs
-- [ ] "What's $.UI.create() used for?" → Should explain with reference
-
-If the AI answers these correctly, AGENTS.md is working! 🎉
+- [ ] "What Titanium skills and docs are available in this project?" → Should list all skills
+- [ ] "Which PurgeTSS doc covers grid layouts?" → Should know the file path
+- [ ] "My Android build crashes with an iOS-only property. What's the rule?" → Should answer correctly
+- [ ] "My ListView is slow with lots of items. Where are the performance docs?" → Should point to docs
+- [ ] "How do I create views from code instead of XML?" → Should explain with reference
