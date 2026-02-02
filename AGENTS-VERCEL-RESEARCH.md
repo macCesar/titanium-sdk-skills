@@ -17,7 +17,7 @@ Based on [Vercel's research](https://vercel.com/blog/agents-md-outperforms-skill
 
 ## The Solution: AGENTS.md with Compressed Index
 
-Vercel found that using AGENTS.md with a compressed documentation index achieves **100% pass rate**.
+Vercel reported that using AGENTS.md with a compressed documentation index achieved a **100% pass rate** in their evaluation.
 
 ### Why It Works
 
@@ -42,7 +42,7 @@ The index uses a compressed format that maps skills to their reference documenta
 
 ```
 [Titanium SDK Docs Index]|root: ~/.agents/skills
-|alloy-expert/references:{alloy-structure.md,anti-patterns.md,...}
+|ti-expert/references:{alloy-structure.md,anti-patterns.md,...}
 |purgetss/references:{animation-system.md,apply-directive.md,...}
 |ti-ui/references:{listviews-and-performance.md,layouts-and-positioning.md,...}
 ```
@@ -56,7 +56,7 @@ The index uses a compressed format that maps skills to their reference documenta
 
 | Skill            | Purpose                       | Best For                                      |
 | ---------------- | ----------------------------- | --------------------------------------------- |
-| **alloy-expert** | Architecture + Implementation | Starting point for most Alloy tasks           |
+| **ti-expert**    | Architecture + Implementation | Starting point for most Alloy tasks           |
 | **purgetss**     | Utility-first styling         | UI styling, animations, grid layouts          |
 | **ti-ui**        | UI/UX patterns                | Layouts, ListViews, gestures, platform UI     |
 | **ti-howtos**    | Native feature integration    | Location, Push, Media, platform-specific APIs |
@@ -66,7 +66,7 @@ The index uses a compressed format that maps skills to their reference documenta
 
 ### For Complex Workflows
 
-The **ti-researcher** agent (installed in `~/.claude/agents/`) handles:
+The **ti-pro** agent (installed in `~/.claude/agents/`) handles:
 - Codebase architecture analysis
 - Multi-feature research across Titanium APIs
 - Cross-referencing framework patterns
@@ -78,11 +78,11 @@ It preloads all 7 titanium-* skills for comprehensive analysis.
 
 ### For Titanium Projects
 
-Run the `titools agents` command in your Titanium project root:
+Run the `titools sync` command in your Titanium project root:
 
 ```bash
 cd /path/to/your/titanium/project
-titools agents
+titools sync
 ```
 
 This creates/updates:
@@ -116,7 +116,7 @@ This knowledge index is based on the latest Titanium SDK documentation.
 
 ```
 [Titanium SDK Docs Index]|root: ~/.agents/skills
-|alloy-expert/references:{alloy-structure.md,anti-patterns.md,code-conventions.md,contracts.md,controller-patterns.md,error-handling.md,examples.md,...}
+|ti-expert/references:{alloy-structure.md,anti-patterns.md,code-conventions.md,contracts.md,controller-patterns.md,error-handling.md,examples.md,...}
 |alloy-guides/references:{CLI_TASKS.md,CONCEPTS.md,CONTROLLERS.md,MODELS.md,PURGETSS.md,VIEWS_DYNAMIC.md,VIEWS_STYLES.md,VIEWS_WITHOUT_CONTROLLERS.md,...}
 ...
 ```
@@ -130,7 +130,7 @@ When you update titools, simply re-run the command:
 
 ```bash
 titools update      # Update skills and docs
-titools agents      # Regenerate index in your project
+titools sync      # Regenerate index in your project
 ```
 
 The old block is automatically replaced with the new version.
@@ -154,7 +154,7 @@ grep -A 1 "<sdk-version>" tiapp.xml
 1. **Passive context > Active retrieval** - Information that's always present outperforms information that must be actively loaded
 2. **No activation needed** - The AI doesn't need to decide when to use a skill
 3. **Consistent behavior** - Same information every time, regardless of prompt wording
-4. **100% pass rate** - AGENTS.md approach achieves perfect performance on evaluated tasks
+4. **100% pass rate** - AGENTS.md approach achieved perfect performance on evaluated tasks
 
 ## References
 
